@@ -1,7 +1,9 @@
 ExtJS version of the biofuels game running on rails, testing possibility of having rails manage the backend
 
-should only need to run
+To get it working run:
 
-"bundle install"
+bundle install
+rake db:migrate
+rails server
 
-to get it working, but sometimes therubyracer causes trouble
+Then the game can be found at localhost:3000
