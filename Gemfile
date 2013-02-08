@@ -12,7 +12,8 @@ group :assets do
   gem "coffee-rails"
   gem "uglifier"
 end
-gem "therubyracer"
+#gem "therubyracer"
+gem "execjs"
 
 group :test do
   gem "shoulda-matchers"
