@@ -1,7 +1,7 @@
 /*
- * File: app/view/ContractHelpWindow.js
+ * File: app/view/InformationPanel.js
  */
-	
+
 //------------------------------------------------------------------------------
 Ext.define('Biofuels.view.InformationPanel', {
 //------------------------------------------------------------------------------
@@ -9,13 +9,13 @@ Ext.define('Biofuels.view.InformationPanel', {
 	extend: 'Ext.panel.Panel',
     alias: 'widget.informationPanel',
 
-    
+
 	title: 'Information About Your Farm',
 	titleAlign: 'center',
-    
+
     //--------------------------------------------------------------------------
     initComponent: function() {
-    	
+
         var me = this;
 
         Ext.applyIf(me, {
@@ -41,7 +41,7 @@ Ext.define('Biofuels.view.InformationPanel', {
 					text: 'Some Label Text'
 				}],
 				collapsed: true
-			}, 
+			},
 			{
 				xtype: 'panel',
 				title: 'Other Metrics',
@@ -49,7 +49,7 @@ Ext.define('Biofuels.view.InformationPanel', {
 				collapsed: true
 			}]
 		});
-		
+
         me.callParent(arguments);
     }
 
