@@ -1,14 +1,7 @@
-# Rails 3 along with ExtJS 4 MVC
+ExtJS version of the biofuels game running on rails, testing possibility of having rails manage the backend
 
-[![Build status](https://secure.travis-ci.org/lucassus/extjs4-account-manager.png)](http://travis-ci.org/lucassus/extjs4-account-manager)
+should only need to run
 
-An example of ExtJS 4 MVC application written at the top of Ruby on Rails stack.
-It's just a simple CRUD for managing users accounts.
+"bundle install"
 
-How to run it:
-
-* bundle install
-* rake db:migrate
-* rake db:seed # will populate the database with several user records
-* rails server
-* And finally navigate to http://localhost:3000
+to get it working, but sometimes therubyracer causes trouble
