@@ -1,7 +1,7 @@
 /*
  * File: app/view/ContractOfferingWindow.js
  */
-	
+
 //------------------------------------------------------------------------------
 Ext.define('Biofuels.view.ContractOfferingPanel', {
     extend: 'Ext.panel.Panel',

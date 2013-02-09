@@ -11,7 +11,15 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130208163115) do
+ActiveRecord::Schema.define(:version => 20130208202234) do
+
+  create_table "farmers", :force => true do |t|
+    t.integer  "earnings"
+    t.boolean  "accept_corn_contract"
+    t.boolean  "accept_switchgrass_contract"
+    t.datetime "created_at",                  :null => false
+    t.datetime "updated_at",                  :null => false
+  end
 
   create_table "game_histories", :force => true do |t|
     t.integer  "year"
