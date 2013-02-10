@@ -92,9 +92,9 @@ tools:[{
 },
 
 	//--------------------------------------------------------------------------
-	advanceYear: function() {
+  advanceYear: function() {
 
-		//this.year++;
+    //this.year++;
     yur = this.yearLabel[0];
 
     paren = this;
@@ -108,7 +108,6 @@ tools:[{
         success: function(response, opts){
          var obj = Ext.JSON.decode(response.responseText);
           paren.year = obj.game_history.year;
-
          //alert(obj.gamehistory.year)
 
         },
@@ -122,7 +121,6 @@ tools:[{
     this.yearLabel[index].show(true);
   }
 },
-
 	//--------------------------------------------------------------------------
 	advanceStage: function(drawComp) {
 
@@ -133,6 +131,7 @@ tools:[{
 			this.createStageMarker(drawComp);
 			this.createYearLabel(drawComp);
 			this.stageMarkerPos = 0;
+
 		}
 		else {
 
@@ -150,6 +149,9 @@ tools:[{
       }, true);
       }
       else {
+        if(this.stageMarkerPos == 2){
+          Ext.ComponentQuery.query('Farm')[0].saveFields()
+        }
         this.stageMarker[0].animate({
          duration: 500,
          to: {

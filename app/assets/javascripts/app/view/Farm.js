@@ -287,7 +287,14 @@ Ext.define('Biofuels.view.Farm', {
 	onChange: function(slider) {
 		this.setFieldSeason(slider.getValue());
 	},
-
+  //--------------------------------------------------------------------------
+  saveFields: function() {
+    alert(this.fields[0].fieldVisuals.cropType)
+    for (var index = 0; index < this.fields.length; index++ ) {
+      var field = this.fields[index];
+      // alert(field.crop);
+    }
+  },
 	//-----------------------------------------------------------------------
 	getNumberSeasons: function() {
 

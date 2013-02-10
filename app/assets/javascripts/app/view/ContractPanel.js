@@ -34,18 +34,29 @@ alias: 'widget.contractPanel',
 
    sendContractInfo: function() {
       //alert(Ext.getCmp('Corn Contract').items.items[2].pressed);
-      accept_corn = Ext.getCmp('Corn Contract').items.items[2].pressed
-      accept_switchgrass = Ext.getCmp('Switchgrass Contract').items.items[2].pressed
+      //accept_corn = Ext.getCmp('Corn Contract').items.items[2].pressed
+      //accept_switchgrass = Ext.getCmp('Switchgrass Contract').items.items[2].pressed
+      cornButton = Ext.getCmp('Corn Contract').items.items[2]
+      grassButton = Ext.getCmp('Switchgrass Contract').items.items[2]
       Ext.Ajax.request({
         url: '/accept_contracts',
         method: 'POST',
         params: {
-          'corn': accept_corn,
-          'switchgrass': accept_switchgrass
+          'corn': cornButton.pressed,
+          'switchgrass': grassButton.pressed
         },
         success: function(response, opts){
-         var obj = Ext.JSON.decode(response.responseText);
-         //alert(obj.gamehistory.year)
+          var obj = Ext.JSON.decode(response.responseText);
+
+          //alert(obj.farmer.accept_corn_contract)
+          if(cornButton.pressed == obj.farmer.accept_corn_contract){
+            cornButton.btnEl.dom.click();
+          }
+
+          if(grassButton.pressed == obj.farmer.accept_switchgrass_contract){
+            grassButton.btnEl.dom.click();
+          }
+          //cornButton.handler.call(cornButton.scope, cornButton, Ext.EventObject());
          },
          failure: function(response, opts){
           console.log("failed to get json response");

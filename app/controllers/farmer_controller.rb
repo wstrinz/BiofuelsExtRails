@@ -1,8 +1,9 @@
 class FarmerController < ApplicationController
   def accept_contracts
-    Farmer.first.accept_contracts(params[:corn], params[:switchgrass])
+    @farmer = Farmer.first
+    @farmer.accept_contracts(params[:corn], params[:switchgrass])
     respond_to do |format|
-      format.json { head :no_content }
+      format.json { render json: @farmer}
     end
   end
 end

@@ -7,7 +7,7 @@ class GameHistoryController < ApplicationController
     year = @game_history.advance_year
 
     respond_to do |format|
-      format.json {render :json => @game_history}
+      format.json {render json: @game_history}
     end
   end
 end
