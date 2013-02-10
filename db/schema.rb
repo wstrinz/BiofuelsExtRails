@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130208202234) do
+ActiveRecord::Schema.define(:version => 20130210165004) do
 
   create_table "farmers", :force => true do |t|
     t.integer  "earnings"
@@ -19,6 +19,24 @@ ActiveRecord::Schema.define(:version => 20130208202234) do
     t.boolean  "accept_switchgrass_contract"
     t.datetime "created_at",                  :null => false
     t.datetime "updated_at",                  :null => false
+  end
+
+  create_table "farms", :force => true do |t|
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+    t.integer  "farmer_id"
+  end
+
+  create_table "fields", :force => true do |t|
+    t.string   "crop"
+    t.boolean  "fertilizer"
+    t.boolean  "pesticide"
+    t.boolean  "till"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+    t.integer  "x"
+    t.integer  "y"
+    t.integer  "farm_id"
   end
 
   create_table "game_histories", :force => true do |t|

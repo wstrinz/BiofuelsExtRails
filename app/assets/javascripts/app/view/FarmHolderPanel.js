@@ -1,7 +1,7 @@
 /*
  * File: app/view/FarmHolderPanel.js
  */
-	
+
 //------------------------------------------------------------------------------
 Ext.define('Biofuels.view.FarmHolderPanel', {
 //------------------------------------------------------------------------------
@@ -17,15 +17,15 @@ Ext.define('Biofuels.view.FarmHolderPanel', {
 		type:'help',
 		qtip: 'Add a field!',
 		handler: function(event, target, owner, tool) {
-			
+
 			// UGH: FIXME: seems like there would be an easier way to do this?
 			// Owner of this tool is the panel header...
 			// So go up from the panel header which gets us to the panel itself...
 			// then go back down to get the Farm component on the panel...
-			owner.up().child('Farm').createFields(2);
+			Ext.ComponentQuery.query('Farm')[0].createFields(2);
 		}
     }],
-    
+
     //--------------------------------------------------------------------------
     initComponent: function() {
         var me = this;

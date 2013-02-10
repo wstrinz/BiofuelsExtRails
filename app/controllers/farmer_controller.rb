@@ -6,4 +6,12 @@ class FarmerController < ApplicationController
       format.json { render json: @farmer}
     end
   end
+
+  def get_farm
+    @farmer = Farmer.first
+
+    respond_to do |format|
+      format.json { render json: @farmer.fields}
+    end
+  end
 end

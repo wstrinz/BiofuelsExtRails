@@ -131,7 +131,7 @@ tools:[{
 			this.createStageMarker(drawComp);
 			this.createYearLabel(drawComp);
 			this.stageMarkerPos = 0;
-
+      Ext.ComponentQuery.query('Farm')[0].loadFromServer();
 		}
 		else {
 
@@ -150,7 +150,7 @@ tools:[{
       }
       else {
         if(this.stageMarkerPos == 2){
-          Ext.ComponentQuery.query('Farm')[0].saveFields()
+          Ext.ComponentQuery.query('Farm')[0].saveFields();
         }
         this.stageMarker[0].animate({
          duration: 500,
