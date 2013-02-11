@@ -14,4 +14,13 @@ class FarmerController < ApplicationController
       format.json { render json: @farmer.fields}
     end
   end
+
+  def save_fields
+    @farmer = Farmer.first
+    @farmer.save_fields(params[:fields])
+
+    respond_to do |format|
+      format.json { render json: @farmer}
+    end
+  end
 end

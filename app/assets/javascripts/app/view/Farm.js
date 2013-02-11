@@ -290,10 +290,32 @@ renderTo: Ext.getBody(),
   //--------------------------------------------------------------------------
   saveFields: function() {
   //alert(this.fields[0].fieldVisuals.cropType)
+
+    sendFields = new Array();
+
     for (var index = 0; index < this.fields.length; index++ ) {
       var field = this.fields[index];
       // alert(field.crop);
+      sendFields.push(JSON.stringify(field));
     }
+
+    Ext.Ajax.request({
+        url: '/save_fields',
+        method: 'POST',
+        params: {
+          'fields': sendFields
+        },
+        success: function(response, opts){
+          var obj = Ext.JSON.decode(response.responseText);
+
+          alert("success!")
+          //cornButton.handler.call(cornButton.scope, cornButton, Ext.EventObject());
+         },
+         failure: function(response, opts){
+          console.log("failed to get json response for saveFields");
+        }
+      });
+
   },
   //--------------------------------------------------------------------------
   loadFromServer: function() {

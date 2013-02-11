@@ -8,4 +8,8 @@ class Farmer < ActiveRecord::Base
     self.accept_switchgrass_contract = switchgrass
     self.save
   end
+
+  def save_fields(save_info)
+    indx = 0
+  end
 end
