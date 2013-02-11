@@ -1,5 +1,6 @@
 class Farmer < ActiveRecord::Base
   attr_accessible :accept_corn_contract, :accept_switchgrass_contract, :earnings
+  belongs_to :user
   has_one :farm
   has_many :fields, through: :farm
 
