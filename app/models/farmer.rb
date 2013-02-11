@@ -11,6 +11,7 @@ class Farmer < ActiveRecord::Base
 
   def save_fields(save_info)
     indx = 0
-
+    puts "sinfo:"
+    puts save_info[0]
   end
 end
