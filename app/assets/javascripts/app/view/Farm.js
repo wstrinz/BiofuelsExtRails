@@ -293,29 +293,27 @@ renderTo: Ext.getBody(),
 
     sendFields = new Array();
 
-    alert(this.fields[0].fieldVisuals.till.stateValue>0)
     for (var index = 0; index < this.fields.length; index++ ) {
 
       var field = this.fields[index].fieldVisuals;
       var fieldInfo = new Array();
       fieldInfo.push(field.cropType);
       fieldInfo.push(field.fertilizer.stateValue>0);
-      fieldInfo.push(field.pesticide.stateValue>0);
+      fieldInfo.push(field.pesticide.stateValue==0);
       fieldInfo.push(field.till.stateValue>0);
       // alert(field.crop);
-      sendFields.push(JSON.stringify(fieldInfo));
+      sendFields.push(fieldInfo);
     }
-
+    var sendString = JSON.stringify(sendFields);
     Ext.Ajax.request({
         url: '/save_fields',
         method: 'POST',
         params: {
-          'fields': sendFields
+          'fields': sendString
         },
         success: function(response, opts){
           var obj = Ext.JSON.decode(response.responseText);
 
-          alert("success!")
           //cornButton.handler.call(cornButton.scope, cornButton, Ext.EventObject());
          },
          failure: function(response, opts){

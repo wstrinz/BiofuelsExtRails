@@ -1,3 +1,5 @@
+require 'json'
+
 class FarmerController < ApplicationController
   def accept_contracts
     @farmer = Farmer.first
@@ -17,7 +19,7 @@ class FarmerController < ApplicationController
 
   def save_fields
     @farmer = Farmer.first
-    @farmer.save_fields(params[:fields])
+    @farmer.save_fields(JSON.parse(params[:fields]))
 
     respond_to do |format|
       format.json { render json: @farmer}

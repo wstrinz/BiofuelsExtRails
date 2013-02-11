@@ -12,6 +12,16 @@ class Farmer < ActiveRecord::Base
   def save_fields(save_info)
     indx = 0
     puts "sinfo:"
-    puts save_info[0]
+    until (save_info.length <= fields.count)
+      farm.fields << Field.create!()
+    end
+    fields.each do |field|
+      field.crop = save_info[indx][0]
+      field.fertilizer = save_info[indx][1]
+      field.pesticide = save_info[indx][2]
+      field.till = save_info[indx][3]
+      field.save
+      indx+=1
+    end
   end
 end
