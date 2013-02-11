@@ -294,9 +294,11 @@ renderTo: Ext.getBody(),
     sendFields = new Array();
 
     for (var index = 0; index < this.fields.length; index++ ) {
-      var field = this.fields[index];
+      var field = this.fields[index].fieldVisuals;
+      var fieldInfo = new Array();
+      fieldInfo.push(field.cropType, field.fertilizer, field.pesticide, field.till);
       // alert(field.crop);
-      sendFields.push(JSON.stringify(field));
+      sendFields.push(fieldInfo);
     }
 
     Ext.Ajax.request({

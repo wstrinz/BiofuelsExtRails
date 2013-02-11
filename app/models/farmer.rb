@@ -11,5 +11,6 @@ class Farmer < ActiveRecord::Base
 
   def save_fields(save_info)
     indx = 0
+
   end
 end
