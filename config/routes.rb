@@ -1,4 +1,6 @@
 Extjs4AccountManager::Application.routes.draw do
+  devise_for :users
+
   get "farmer/accept_contracts"
 
   get "game_history/advance_year"
