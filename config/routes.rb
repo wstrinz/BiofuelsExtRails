@@ -1,5 +1,6 @@
 Extjs4AccountManager::Application.routes.draw do
   get "game_world/create"
+  get "game_world/show"
 
   devise_for :users
 
