@@ -1,5 +1,6 @@
 class GameWorld < ActiveRecord::Base
   # attr_accessible :title, :body
+  attr_accessible :timeout
   has_many :farmers
   has_many :fields, through: :farmers
 
@@ -24,13 +25,23 @@ class GameWorld < ActiveRecord::Base
   end
 
   def reload_farmers
+    @timeout = self.timeout
+    unless @timeout
+      @timeout = 60.minutes
+    end
     farmers.clear
     Farmer.all.each do |farmer|
       if(farmer.last_updated)
-        if(farmer.last_updated > Time.now - 1.hours)
+        if(farmer.last_updated > Time.now - @timeout)
           farmers << farmer
         end
       end
     end
   end
+
+  def set_timeout(t)
+    self.timeout = t.minutes
+    self.save
+  end
+
 end

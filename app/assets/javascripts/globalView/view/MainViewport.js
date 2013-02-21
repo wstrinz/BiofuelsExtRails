@@ -215,21 +215,31 @@ Ext.define('BiofuelsGlobal.view.MainViewport', {
             this.loadFarmers();
           }
         },
-				{
+        {
 					xtype: 'textfield',
-					itemId: 'roomName',
+					itemId: 'activityTimeout',
 					x: 630,
 					y: 80,
 					width: 160,
-					fieldLabel: 'Room',
+					fieldLabel: 'Timeout',
 					labelAlign: 'right',
 					labelWidth: 80
 				},
+        {
+          xtype: 'textfield',
+          itemId: 'roomName',
+          x: 630,
+          y: 110,
+          width: 160,
+          fieldLabel: 'Room',
+          labelAlign: 'right',
+          labelWidth: 80
+        },
 				{
 					xtype: 'textfield',
 					itemId: 'password',
 					x: 630,
-					y: 110,
+					y: 140,
 					width: 160,
 					fieldLabel: 'Password',
 					labelAlign: 'right',
