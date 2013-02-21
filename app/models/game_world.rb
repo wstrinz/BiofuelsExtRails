@@ -14,4 +14,23 @@ class GameWorld < ActiveRecord::Base
   def get_planted
     {'grass' => grass_planted, 'corn' => corn_planted }
   end
+
+  def farmer_info
+    arr = []
+    farmers.each do |farmer|
+      arr << [farmer.user.email, farmer.earnings]
+    end
+    arr
+  end
+
+  def reload_farmers
+    farmers.clear
+    Farmer.all.each do |farmer|
+      if(farmer.last_updated)
+        if(farmer.last_updated > Time.now - 1.hours)
+          farmers << farmer
+        end
+      end
+    end
+  end
 end

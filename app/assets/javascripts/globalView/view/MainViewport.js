@@ -30,57 +30,23 @@ Ext.define('BiofuelsGlobal.view.MainViewport', {
         //app.network.registerListener('farmerList', this.updateFarmerList, this);
     },
 
-	//--------------------------------------------------------------------------
-    updateFarmerList: function(json) {
-
-      this.farmerListStore.loadRawData(json, false);
-
-    // FIXME: not the best place for this...needs to happen after login
-      var roomName = this.getComponent('panel1').getComponent('roomName');
-      var password = this.getComponent('panel1').getComponent('password');
-
-      roomName.setValue(BiofuelsGlobal.roomInformation.roomName);
-      password.setValue(BiofuelsGlobal.roomInformation.password);
-    },
-
-    updateRoomInfo: function(json) {
-
+    loadFarmers: function() {
+      paren = this;
       Ext.Ajax.request({
-        url: '/game_world/getupdate',
+        url: '/game_world/reloadfarmers',
         method: 'GET',
         success: function(response, opts){
           //console.log(Ext.getCmp('cornlabel'));
-          var obj = Ext.JSON.decode(response.responseText)
-          Ext.getCmp('cornlabel').update("corn: " + obj.corn);
-          Ext.getCmp('grasslabel').update("grass: " + obj.corn);
-          // console.log("grass: " + Ext.JSON.decode(response.responseText).grass);
-          // console.log("corn: " + Ext.JSON.decode(response.responseText).corn);
-         /*var obj = Ext.JSON.decode(response.responseText);
-         for(var index = 0; index < obj.length; index++){
-          var fieldObj = obj[index].field;
-          farmObj.createFields(1);
-          var newField = farmObj.fields[farmObj.fields.length - 1].fieldVisuals;
-          newField.onPlantingClickHandler(fieldObj.crop);
+          console.log(Ext.JSON.decode(response.responseText));
 
-          //copypasta from togglesprite click handler; probably not the way to do things
-          if(fieldObj.till){
-            newField.till.stateValue++; if (newField.till.stateValue > 1) newField.till.stateValue = 0;
-            newField.till.sprite.setAttributes({
-              src: newField.till.stateImages[newField.till.stateValue]
-            }, true);
-          }
-          if(fieldObj.fertilizer){
-            newField.fertilizer.stateValue++; if (newField.fertilizer.stateValue > 1) newField.fertilizer.stateValue = 0;
-            newField.fertilizer.sprite.setAttributes({
-              src: newField.fertilizer.stateImages[newField.fertilizer.stateValue]
-            }, true);
-          }
-          if(!fieldObj.pesticide){
-            newField.pesticide.stateValue++; if (newField.pesticide.stateValue > 1) newField.pesticide.stateValue = 0;
-            newField.pesticide.sprite.setAttributes({
-              src: newField.pesticide.stateImages[newField.pesticide.stateValue]
-            }, true);
-          }*/
+          paren.updateRoomInfo;
+          // var obj = Ext.JSON.decode(response.responseText)
+
+          // paren.updateFarmerList(obj[0])
+
+          // Ext.getCmp('cornlabel').update("corn: " + obj[1].corn);
+          // Ext.getCmp('grasslabel').update("grass: " + obj[1].grass);
+
         },
         failure: function(response, opts){
           console.log("failed to get json response")
@@ -88,30 +54,62 @@ Ext.define('BiofuelsGlobal.view.MainViewport', {
       });
     },
 
+    updateRoomInfo: function(json) {
 
-    /*	this.farmerListStore.loadRawData(json, false);
+      var paren = this;
 
-		// FIXME: not the best place for this...needs to happen after login
-    	var roomName = this.getComponent('panel1').getComponent('roomName');
-    	var password = this.getComponent('panel1').getComponent('password');
+      Ext.Ajax.request({
+        url: '/game_world/getupdate',
+        method: 'GET',
+        success: function(response, opts){
+          //console.log(Ext.getCmp('cornlabel'));
+          var obj = Ext.JSON.decode(response.responseText)
 
-    	roomName.setValue(BiofuelsGlobal.roomInformation.roomName);
-    	password.setValue(BiofuelsGlobal.roomInformation.password);*/
-    //},
+          paren.updateFarmerList(obj[0])
+
+          Ext.getCmp('cornlabel').update("corn: " + obj[1].corn);
+          Ext.getCmp('grasslabel').update("grass: " + obj[1].grass);
+
+          console.log(Ext.JSON.decode(response.responseText));
+        },
+        failure: function(response, opts){
+          console.log("failed to get json response")
+        }
+      });
+    },
 
 	//--------------------------------------------------------------------------
-    configFarmerStore: function() {
+    updateFarmerList: function(json) {
+    var newData = new Array();
+    for(var i=0; i< json.length; i++){
+      newData.push(new Array(json[i][0],json[i][1]))
+    }
 
-    	this.farmerListStore = Ext.create('Ext.data.Store', {
-    		storeId:'farmerListStore',
-			fields:['name','ready'],
-			proxy: {
-				type: 'memory',
-				reader: {
-					type: 'json',
-					root: 'farmers'
-				}
-			}
+     this.farmerListStore.loadData(newData);
+
+    //   this.farmerListStore.loadRawData(json, false);
+
+    // // FIXME: not the best place for this...needs to happen after login
+    //   var roomName = this.getComponent('panel1').getComponent('roomName');
+    //   var password = this.getComponent('panel1').getComponent('password');
+
+    //   roomName.setValue(BiofuelsGlobal.roomInformation.roomName);
+    //   password.setValue(BiofuelsGlobal.roomInformation.password);
+  },
+
+  //--------------------------------------------------------------------------
+  configFarmerStore: function() {
+
+      this.farmerListStore = Ext.create('Ext.data.Store', {
+      storeId:'farmerListStore',
+      fields:['name','ready'],
+      proxy: {
+        type: 'memory',
+        reader: {
+          type: 'json',
+          root: 'farmers'
+        }
+      }
 		});
 	},
 
@@ -205,11 +203,23 @@ Ext.define('BiofuelsGlobal.view.MainViewport', {
             this.updateRoomInfo();
           }
         },
+        {
+        xtype: 'button',
+        x: 630,
+        y: 40,
+        width: 160,
+        scale: 'medium',
+        text: 'Load Farmers',
+        scope: this,
+          handler: function() {
+            this.loadFarmers();
+          }
+        },
 				{
 					xtype: 'textfield',
 					itemId: 'roomName',
 					x: 630,
-					y: 50,
+					y: 80,
 					width: 160,
 					fieldLabel: 'Room',
 					labelAlign: 'right',
@@ -219,7 +229,7 @@ Ext.define('BiofuelsGlobal.view.MainViewport', {
 					xtype: 'textfield',
 					itemId: 'password',
 					x: 630,
-					y: 80,
+					y: 110,
 					width: 160,
 					fieldLabel: 'Password',
 					labelAlign: 'right',

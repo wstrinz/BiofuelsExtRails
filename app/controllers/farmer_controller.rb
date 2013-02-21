@@ -21,6 +21,7 @@ class FarmerController < ApplicationController
   def save_fields
     @farmer = get_farmer #Farmer.first
     @farmer.save_fields(JSON.parse(params[:fields]))
+    @farmer.updated!
 
     respond_to do |format|
       format.json { render json: @farmer}

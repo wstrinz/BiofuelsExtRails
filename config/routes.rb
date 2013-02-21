@@ -2,6 +2,7 @@ BiofuelsExtRails::Application.routes.draw do
   get "game_world/create"
   get "game_world/show"
   get "game_world/getupdate"
+  get "game_world/reloadfarmers"
 
   devise_for :users
 

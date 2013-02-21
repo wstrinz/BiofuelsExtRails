@@ -1,5 +1,5 @@
 class Farmer < ActiveRecord::Base
-  attr_accessible :accept_corn_contract, :accept_switchgrass_contract, :earnings
+  attr_accessible :accept_corn_contract, :accept_switchgrass_contract, :earnings, :last_updated
   belongs_to :user
   belongs_to :game_world
   has_one :farm
@@ -25,5 +25,10 @@ class Farmer < ActiveRecord::Base
       field.save
       indx+=1
     end
+  end
+
+  def updated!
+    self.last_updated = Time.now
+    self.save
   end
 end
