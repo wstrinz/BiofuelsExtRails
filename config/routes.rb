@@ -1,6 +1,7 @@
-Extjs4AccountManager::Application.routes.draw do
+BiofuelsExtRails::Application.routes.draw do
   get "game_world/create"
   get "game_world/show"
+  get "game_world/getupdate"
 
   devise_for :users
 

@@ -40,9 +40,9 @@ Ext.define('BiofuelsGlobal.view.JoinGamePopup', {
     //--------------------------------------------------------------------------
     initNetworkEvents: function() {
     	var app = BiofuelsGlobal;
-    	
-        app.network.registerListener('globalValidateRoom', this.manageLed, this);
-        app.network.registerListener('globalJoinRoom', this.serverJoinRoomResult, this);
+
+        // app.network.registerListener('globalValidateRoom', this.manageLed, this);
+        // app.network.registerListener('globalJoinRoom', this.serverJoinRoomResult, this);
     },
 
     //--------------------------------------------------------------------------
@@ -50,7 +50,7 @@ Ext.define('BiofuelsGlobal.view.JoinGamePopup', {
         var me = this;
 
         this.initNetworkEvents();
-        
+
         Ext.applyIf(me, {
             items: [{
 				xtype: 'textfield',
@@ -74,7 +74,7 @@ Ext.define('BiofuelsGlobal.view.JoinGamePopup', {
 				y: 32,
 				height: 20,
 				width: 20,
-				src: 'app/resources/redLed.png'
+				src: 'resources/redLed.png'
 			},
 			{
 				xtype: 'textfield',
@@ -97,7 +97,7 @@ Ext.define('BiofuelsGlobal.view.JoinGamePopup', {
 				hidden: true,
 				height: 20,
 				width: 20,
-				src: 'app/resources/redLed.png'
+				src: 'resources/redLed.png'
 			},
 			{
 				xtype: 'button',
@@ -115,27 +115,27 @@ Ext.define('BiofuelsGlobal.view.JoinGamePopup', {
 
         me.callParent(arguments);
     },
-    
+
     //--------------------------------------------------------------------------
     dirtyChange: function(value) {
-  
+
     	var app = BiofuelsGlobal;
     	var roomName = this.getComponent('roomName').value;
     	var password = this.getComponent('password').value;
 
     	roomName = (typeof roomName == 'undefined' || roomName.length < 1) ? '' : roomName;
     	password = (typeof password == 'undefined' || password.length < 1) ? '' : password;
-    	
+
  		var output = {
  			event: 'globalValidateRoom',
  			roomName: roomName,
  			password: password
  		};
-    	app.network.send(JSON.stringify(output));
-    	
+    	//app.network.send(JSON.stringify(output));
+
     	return true;
     },
-    
+
     //--------------------------------------------------------------------------
     manageLed: function(json) {
     	// -- Room
@@ -147,7 +147,7 @@ Ext.define('BiofuelsGlobal.view.JoinGamePopup', {
     	else {
     		led.setSrc('app/resources/redLed.png');
     	}
-    	
+
     	// -- Password
     	led = this.getComponent('passwordLed');
     	password = this.getComponent('password');
@@ -160,7 +160,7 @@ Ext.define('BiofuelsGlobal.view.JoinGamePopup', {
     		password.setDisabled(false);
     		led.setVisible(true);
     	}
-    	
+
     	if (passwordResult && roomMatched) {
     		led.setSrc('app/resources/greenLed.png');
     	}
@@ -168,10 +168,10 @@ Ext.define('BiofuelsGlobal.view.JoinGamePopup', {
     		led.setSrc('app/resources/redLed.png');
     	}
     },
-    
+
     //--------------------------------------------------------------------------
     tryJoinRoom: function() {
-    	
+
     	var roomName = this.getComponent('roomName').value;
     	var password = this.getComponent('password').value;
 
@@ -179,7 +179,7 @@ Ext.define('BiofuelsGlobal.view.JoinGamePopup', {
     	password = (typeof password == 'undefined' || password.length < 1) ? '' : password;
 
     	if (typeof roomName == 'undefined' || roomName.length < 1) {
-    		
+
     		Ext.MessageBox.alert('Data Required', 'The room name cannot be left empty.');
     		var roomName = this.getComponent('name').focus(true,true);
     		return;
@@ -190,24 +190,26 @@ Ext.define('BiofuelsGlobal.view.JoinGamePopup', {
 			roomName: roomName,
 			password: password
 		}
-    	
+
     	var message = {
     		event: 'globalJoinRoom',
     		roomName: roomName,
     		password: password
     	};
-    	BiofuelsGlobal.network.send(JSON.stringify(message));
+    	//BiofuelsGlobal.network.send(JSON.stringify(message));
+      this.serverJoinRoomResult("successess")
     },
-    
+
     //--------------------------------------------------------------------------
     serverJoinRoomResult: function(json) {
-    	
-     	if (json.result) {
+
+     	//if (json.result) {
+      if(json){
      		this.close();
      	}
      	else {
      		Ext.MessageBox.alert('Join Room Error', json.errorMessage);
      	}
     }
-    
+
 });

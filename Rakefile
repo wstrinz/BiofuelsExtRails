@@ -4,4 +4,4 @@
 require File.expand_path('../config/application', __FILE__)
 require 'rake'
 
-Extjs4AccountManager::Application.load_tasks
+BiofuelsExtRails::Application.load_tasks
