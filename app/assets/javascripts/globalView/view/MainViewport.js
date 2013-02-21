@@ -39,7 +39,7 @@ Ext.define('BiofuelsGlobal.view.MainViewport', {
           //console.log(Ext.getCmp('cornlabel'));
           console.log(Ext.JSON.decode(response.responseText));
 
-          paren.updateRoomInfo;
+          paren.call.updateRoomInfo();
           // var obj = Ext.JSON.decode(response.responseText)
 
           // paren.updateFarmerList(obj[0])
@@ -54,7 +54,7 @@ Ext.define('BiofuelsGlobal.view.MainViewport', {
       });
     },
 
-    updateRoomInfo: function(json) {
+    updateRoomInfo: function() {
 
       var paren = this;
 

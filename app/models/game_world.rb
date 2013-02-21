@@ -25,14 +25,14 @@ class GameWorld < ActiveRecord::Base
   end
 
   def reload_farmers
-    @timeout = self.timeout
-    unless @timeout
-      @timeout = 60.minutes
+    if !self.timeout
+      self.timeout = 60.minutes
+      self.save
     end
     farmers.clear
     Farmer.all.each do |farmer|
       if(farmer.last_updated)
-        if(farmer.last_updated > Time.now - @timeout)
+        if(farmer.last_updated > Time.now - self.timeout)
           farmers << farmer
         end
       end
