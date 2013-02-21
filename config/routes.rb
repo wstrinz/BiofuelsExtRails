@@ -1,4 +1,6 @@
 Extjs4AccountManager::Application.routes.draw do
+  get "game_world/create"
+
   devise_for :users
 
   get "farmer/accept_contracts"
