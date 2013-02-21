@@ -5,7 +5,6 @@ Extjs4AccountManager::Application.routes.draw do
 
   get "game_history/advance_year"
 
-  resources :users
   root to: 'index#index'
 
   match '/advance_year' => 'game_history#advance_year', :as => :advance_year
